@@ -11,7 +11,7 @@
 		<!-- name + timestamps -->
 		<v-col>
 			<div class="d-flex align-center flex-wrap">
-				<h3 class="text-subtitle-2 font-weight-medium mr-2 mb-0"
+				<h3 class="text-subtitle-2 font-weight-medium mr-1 mb-0"
 					:style="{ color: baseRoleColors[userData.baseRole] }">
 					{{ userData.name }}
 				</h3>

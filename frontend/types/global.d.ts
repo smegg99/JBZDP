@@ -8,8 +8,8 @@ declare global {
 
 	interface WithId<I = Id>        { readonly id: I }
 	interface WithTimestamps        { readonly createdAt: UnixMs; readonly updatedAt: UnixMs }
-	interface Votable               { readonly stats: VoteStats; readonly viewerInteraction: ViewerInteraction }
-	interface Authored              { readonly user: User; readonly badges: Badges }
+	interface Votable               { readonly stats: VoteStats; readonly userInteractions: UserInteractions | null }
+	interface Authored              { readonly user: User; }
 	interface NamedEntity<I = Id> extends WithId<I> { readonly name: string; readonly slug: string; readonly order: number }
 
 	type Id           = Brand<number, 'id'>
@@ -18,10 +18,13 @@ declare global {
 	type Tag          = Brand<string, 'tag'>
 	type SectionId    = Brand<number, 'sectionId'>
 	type SubsectionId = Brand<number, 'subsectionId'>
+	type CountryCode  = Brand<string, 'countryCode'>
 
 	export const badgeTypes = ['the_finger', 'stone', 'silver', 'gold'] as const
 	type BadgeType = (typeof badgeTypes)[number]
-	type Badges    = Record<BadgeType, number>
+	type Badges = Record<BadgeType, number>
+	type BadgesGiven = Record<BadgeType, boolean>
+	interface BadgeEntry {readonly type: BadgeType, readonly count: number}
 
 	type SearchType = 'posts' | 'users'
 	interface SortOption { label: string; value: string; icon: string }
@@ -36,10 +39,17 @@ declare global {
 		readonly isVerified: boolean
 		readonly currency: Currency
 		readonly baseRole: BaseRole
+		readonly countryOfOrigin: CountryCode
+		readonly isBanned: boolean
 	}
 
-	interface VoteStats { upvoteCount: number; downvoteCount: number }
-	interface ViewerInteraction { isFavorited: boolean; hasUpvoted: boolean; hasDownvoted: boolean }
+	interface VoteStats { upvoteCount: number; downvoteCount: number; badges: Badges }
+	interface UserInteractions {
+		isFavorited: boolean;
+		hasUpvoted: boolean;
+		hasDownvoted: boolean;
+		badgesGiven: BadgesGiven;
+	}
 
 	interface Section    extends NamedEntity<SectionId>    {}
 	interface Subsection extends NamedEntity<SubsectionId> { readonly sectionId: SectionId }
@@ -52,8 +62,8 @@ declare global {
 		readonly parentId: Id | null
 		readonly bodyHtml: string
 		readonly isDeleted: boolean
-		readonly isEdited: boolean
 		readonly isPinned: boolean
+		readonly userInteractions: UserInteractions | null
 	}
 
 	interface PostCore extends WithId, WithTimestamps, Authored, Votable, PostLocation {
@@ -61,8 +71,8 @@ declare global {
 		readonly subtitle: string
 		readonly tags: Tag[]
 		readonly bodyHtml: string
-		readonly isEdited: boolean
 		readonly pinnedComments: CommentCore[]
+		readonly userInteractions: UserInteractions | null
 	}
 }
 
