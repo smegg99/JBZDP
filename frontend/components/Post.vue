@@ -30,34 +30,7 @@
 		<div ref="contentRef" v-html="postData.bodyHtml" class="text-body-2" />
 
 		<!-- actions -->
-		<div class="d-flex align-center mt-4 flex-nowrap overflow-x-auto">
-			<!-- upvote -->
-			<v-btn rounded="xl" variant="outlined" :color="upvoted ? 'green' : undefined" :disabled="!canInteract"
-				@click="emit('upvote')" class="mr-2 flex-shrink-0 h-10"
-				:prepend-icon="upvoted ? 'mdi-plus-circle' : 'mdi-plus-circle-outline'">
-				{{ upvoteCount }}
-			</v-btn>
-
-			<!-- downvote -->
-			<v-btn rounded="xl" variant="outlined" :color="downvoted ? 'red' : undefined" :disabled="!canInteract"
-				@click="emit('downvote')" class="mr-2 flex-shrink-0 h-10"
-				:prepend-icon="downvoted ? 'mdi-minus-circle' : 'mdi-minus-circle-outline'">
-				{{ downvoteCount }}
-			</v-btn>
-
-			<div class="flex-grow-1" />
-
-			<!-- favorite -->
-			<v-btn rounded="xl" variant="text" :color="favorited ? 'yellow-darken-2' : undefined"
-				:disabled="!canInteract" @click="emit('favorite')" :icon="favorited ? 'mdi-star' : 'mdi-star-outline'"
-				class="flex-shrink-0 h-10 w-10" />
-
-			<!-- comments -->
-			<v-btn rounded="xl" variant="outlined" @click="emit('comments')" class="ml-2 flex-shrink-0 h-10"
-				:prepend-icon="'mdi-comment-outline'">
-				{{ commentCount }}
-			</v-btn>
-		</div>
+		<ContentActions :contentData="postData" />
 
 		<!-- pinned comments -->
 		<section v-if="postData.pinnedComments?.length" class="mt-6">
@@ -65,7 +38,7 @@
 			<h3 class="text-sm font-medium mb-2 flex items-center gap-1">
 				<v-icon size="16">mdi-pin</v-icon>Pinned
 			</h3>
-			<Thread :comments="postData.pinnedComments" />
+			<Thread :comments="postData.pinnedComments" :maxDepth="5" />
 		</section>
 	</v-card>
 </template>

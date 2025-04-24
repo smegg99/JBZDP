@@ -1,22 +1,37 @@
 <!-- Thread.vue -->
 <template>
 	<div>
-		<Comment v-for="comment in rootComments" :key="comment.id" :comment="comment" @reply="onReply" />
-		<div class="ml-8">
-			<Comment v-for="comment in replies" :key="comment.id" :comment="comment" @reply="onReply" />
+		<div v-for="comment in comments" :key="comment.id" class="mb-4">
+			<Comment :commentData="comment" @reply="onReply" />
+
+			<div v-if="depth < maxDepth && (comment.comments?.length ?? 0) > 0" class="d-flex">
+				<!-- vertical line using Vuetify’s divider -->
+				<v-divider vertical class="mx-4" color="grey lighten-2" />
+
+				<!-- nested thread grows to fill the rest -->
+				<Thread :comments="comment.comments ?? []" :maxDepth="maxDepth" :depth="depth + 1" @respond="onReply"
+					class="flex-grow-1" />
+			</div>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import Thread from './Thread.vue'
 import Comment from './Comment.vue'
 
-const props = defineProps<{ comments: CommentCore[] }>()
-const emit = defineEmits<{ (e: 'respond', parentId: Id): void }>()
+const props = defineProps<{
+	comments: CommentCore[]
+	maxDepth: number
+	depth?: number
+}>()
 
-const onReply = (id: Id) => emit('respond', id)
+const depth = props.depth ?? 0
+const emit = defineEmits<{
+	(e: 'respond', parentId: Id): void
+}>()
 
-const rootComments = computed(() => props.comments.filter(c => !c.parentId))
-const replies = computed(() => props.comments.filter(c => !!c.parentId))
+function onReply(id: Id) {
+	emit('respond', id)
+}
 </script>

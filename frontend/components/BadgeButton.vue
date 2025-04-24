@@ -2,9 +2,9 @@
 <template>
 	<v-btn :key="badge.type" rounded="xl" :variant="given ? 'tonal' : 'outlined'" size="small"
 		:color="badgeColors[badge.type]" :disabled="!canGive"
-		class="flex-shrink-0 pa-1 mr-2 d-inline-flex align-center h-9" @click="emit('badge', badge)">
+		class="mr-2" @click="emit('badge', badge)">
 		<template #prepend>
-			<v-img :src="badgeIcons[badge.type]" width="24" height="24" class="mr-1" />
+			<v-img :src="badgeIcons[badge.type]" width="16" height="16" class="mr-1" />
 		</template>
 		<!-- NOTE: this should update only increment on the emit event -->
 		{{ badge.count }}

@@ -20,14 +20,30 @@
 				</v-icon>
 			</div>
 
-			<div class="d-flex flex-wrap align-center mt-1 gap-1">
-				<v-chip v-if="contentCreatedAt" pill size="x-small" color="success" variant="outlined" class="mr-1"
-					prepend-icon="mdi-plus">
+			<div class="d-flex flex-column align-start mt-1 gap-1">
+				<v-chip
+					v-if="contentCreatedAt"
+					pill
+					size="x-small"
+					density="compact"
+					color="success lighten-3"
+					variant="text"
+					prepend-icon="mdi-plus"
+					class="ma-0 pa-0"
+				>
 					{{ formatDate(contentCreatedAt) }}
 				</v-chip>
 
-				<v-chip v-if="contentUpdatedAt && contentUpdatedAt !== contentCreatedAt" pill size="x-small"
-					color="secondary" variant="outlined" class="mr-1" prepend-icon="mdi-pencil">
+				<v-chip
+					v-if="contentUpdatedAt && contentUpdatedAt !== contentCreatedAt"
+					pill
+					size="x-small"
+					density="compact"
+					color="secondary lighten-3"
+					variant="text"
+					prepend-icon="mdi-pencil"
+					class="ma-0 pa-0"
+				>
 					{{ formatDate(contentUpdatedAt) }}
 				</v-chip>
 			</div>
@@ -45,8 +61,8 @@ const baseRoleIcons: Record<BaseRole, string> = {
 
 const baseRoleColors: Record<BaseRole, string> = {
 	'admin': 'red',
-	'mod': 'blue',
-	'user': 'green'
+	'mod': 'green',
+	'user': 'light-gray'
 }
 
 function formatDate(timestamp: number): string {

@@ -1,22 +1,50 @@
 <!-- Comment.vue -->
 <template>
-	<v-row no-gutters align="start" class="mb-4">
-		<v-avatar size="32">
-			<v-img :src="comment.user.avatar" :alt="comment.user.name" />
-		</v-avatar>
-		<div class="ml-3 flex-1 overflow-hidden">
-			<div class="text-sm font-medium leading-none">{{ comment.user.name }}</div>
-			<div class="prose prose-sm prose-slate dark:prose-invert mt-1 max-w-none" v-html="comment.bodyHtml" />
-			<v-btn variant="text" size="x-small" density="compact" @click="$emit('reply', comment.id)">
-				Odpowiedz
-			</v-btn>
+	<v-col no-gutters align="start" class="mb-4">
+		<UserHeader :userData="commentData.user" :contentCreatedAt="commentData.createdAt"
+			:contentUpdatedAt="commentData.updatedAt" />
+		<!-- badges -->
+		<div class="d-flex align-center flex-nowrap overflow-x-auto mb-2">
+			<BadgeButton v-for="(count, type) in commentData.stats.badges" :key="type" :badge="{ type, count }"
+				:given="userInteractions.badgesGiven[type]" :canGive="canInteract"
+				@badge="emit('badge', { type, count })" />
 		</div>
-	</v-row>
+
+		<!-- body -->
+		<div ref="contentRef" v-html="commentData.bodyHtml" class="text-body-2" />
+
+		<!-- actions -->
+		<ContentActions :contentData="commentData" @reply="emit('reply', commentData.id)"
+			@upvote="emit('upvote')" @downvote="emit('downvote')" @favorite="emit('favorite')" />
+	</v-col>
 </template>
 
 <script setup lang="ts">
+import UserHeader from './UserHeader.vue';
+import BadgeButton from './BadgeButton.vue';
 
-defineProps<{ comment: CommentCore }>()
+const defaultInteractions = {
+	hasUpvoted: false,
+	hasDownvoted: false,
+	isFavorited: false,
+	badgesGiven: {} as Record<string, boolean>
+}
 
-defineEmits<{ (e: 'reply', id: Id): void }>()
+const userInteractions = computed(() =>
+	props.commentData.userInteractions ?? defaultInteractions
+)
+
+const canInteract = computed(() => {
+	return props.commentData.userInteractions != null
+})
+
+const emit = defineEmits<{
+	(e: 'upvote'): void
+	(e: 'downvote'): void
+	(e: 'favorite'): void
+	(e: 'reply', id: Id): void
+	(e: 'badge', badgeType: BadgeEntry): void
+}>()
+
+const props = defineProps<{ commentData: CommentCore }>()
 </script>

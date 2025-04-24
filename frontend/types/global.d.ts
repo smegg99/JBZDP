@@ -63,6 +63,7 @@ declare global {
 		readonly bodyHtml: string
 		readonly isDeleted: boolean
 		readonly isPinned: boolean
+		readonly comments: CommentCore[] | null
 		readonly userInteractions: UserInteractions | null
 	}
 
@@ -71,7 +72,11 @@ declare global {
 		readonly subtitle: string
 		readonly tags: Tag[]
 		readonly bodyHtml: string
-		readonly pinnedComments: CommentCore[]
+		readonly pinnedComments: CommentCore[] | null
+		// NOTE: Posts can be fetched in two ways:
+		// 1. With the comments included (e.g. when fetching a whole post)
+		// 2. Without the comments content included, used only for getting their count
+		readonly comments: CommentCore[] | null
 		readonly userInteractions: UserInteractions | null
 	}
 }

@@ -80,23 +80,123 @@ const posts = ref<PostCore[]>([
 		pinnedComments: [
 			{
 				id: 1 as Id,
-				createdAt: now,
-				updatedAt: now + 1000000 as UnixMs,
+				createdAt: now + 100000 as UnixMs,
+				updatedAt: now + 1050000 as UnixMs,
 				user: {
-					id: 100 as Id,
-					name: 'NiggAssaurus88',
-					avatar: 'https://i.pravatar.cc/150?img=69',
+					id: 200 as Id,
+					name: 'BigBlackMan69',
+					avatar: 'https://i.pravatar.cc/150?img=1',
 					joinedAt: now,
 					badges: b(),
 					isVerified: true,
 					currency: 0 as Currency,
-					baseRole: 'user' as BaseRole,
+					baseRole: 'mod' as BaseRole,
 					countryOfOrigin: 'pl' as CountryCode,
 					isBanned: false,
 				},
 				bodyHtml: '<p>Cool post mah kneegrow</p>',
-
+				stats: {
+					upvoteCount: 22,
+					downvoteCount: 1,
+					badges: {
+						the_finger: 1,
+						stone: 7,
+						silver: 2,
+						gold: 5,
+					}
+				} as VoteStats,
+				userInteractions: {
+					isFavorited: false,
+					hasUpvoted: true,
+					hasDownvoted: false,
+					badgesGiven: {
+						the_finger: true,
+						stone: false,
+						silver: false,
+						gold: true,
+					} as BadgesGiven,
+				} as UserInteractions,
+				comments: [
+					{
+						id: 1 as Id,
+						createdAt: now + 100000 as UnixMs,
+						user: {
+							id: 200 as Id,
+							name: 'NigBigga123',
+							avatar: 'https://i.pravatar.cc/150?img=3',
+							joinedAt: now,
+							badges: b(),
+							isVerified: true,
+							currency: 0 as Currency,
+							baseRole: 'admin' as BaseRole,
+							countryOfOrigin: 'pl' as CountryCode,
+							isBanned: false,
+						},
+						bodyHtml: '<p>Fr fr no cap</p>',
+						stats: {
+							upvoteCount: 22,
+							downvoteCount: 1,
+							badges: {
+								the_finger: 1,
+								stone: 7,
+								silver: 2,
+								gold: 5,
+							}
+						} as VoteStats,
+						userInteractions: {
+							isFavorited: false,
+							hasUpvoted: true,
+							hasDownvoted: false,
+							badgesGiven: {
+								the_finger: true,
+								stone: false,
+								silver: false,
+								gold: true,
+							} as BadgesGiven,
+						} as UserInteractions,
+					},
+					{
+						id: 1 as Id,
+						createdAt: now + 100000 as UnixMs,
+						user: {
+							id: 200 as Id,
+							name: 're(d)tarded',
+							avatar: 'https://i.pravatar.cc/150?img=6',
+							joinedAt: now,
+							badges: b(),
+							isVerified: true,
+							currency: 0 as Currency,
+							baseRole: 'user' as BaseRole,
+							countryOfOrigin: 'ru' as CountryCode,
+							isBanned: false,
+						},
+						bodyHtml: '<p>Shieeeeeeeeeeeet</p>',
+						stats: {
+							upvoteCount: 11,
+							downvoteCount: 312,
+							badges: {
+								the_finger: 132,
+								stone: 0,
+								silver: 1,
+								gold: 2,
+							}
+						} as VoteStats,
+						userInteractions: {
+							isFavorited: false,
+							hasUpvoted: false,
+							hasDownvoted: true,
+							badgesGiven: {
+								the_finger: true,
+								stone: false,
+								silver: false,
+								gold: false,
+							} as BadgesGiven,
+						} as UserInteractions,
+					}
+				] as CommentCore[],
 			}
+		] as CommentCore[],
+		comments: [
 		] as CommentCore[],
 	}
 ])
