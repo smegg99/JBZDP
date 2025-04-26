@@ -1,27 +1,34 @@
 <!-- Comment.vue -->
 <template>
-	<v-col no-gutters align="start" class="mb-4">
+	<v-col align="start" class="mb-4">
 		<UserHeader :userData="commentData.user" :contentCreatedAt="commentData.createdAt"
 			:contentUpdatedAt="commentData.updatedAt" />
+
 		<!-- badges -->
-		<div class="d-flex align-center flex-nowrap overflow-x-auto mb-2">
-			<BadgeButton v-for="(count, type) in commentData.stats.badges" :key="type" :badge="{ type, count }"
-				:given="userInteractions.badgesGiven[type]" :canGive="canInteract"
-				@badge="emit('badge', { type, count })" />
+		<div
+			v-if="commentData.stats.badges && Object.keys(commentData.stats.badges).length"
+			class="d-flex align-center flex-nowrap mb-4"
+		>
+			<BadgeLabel
+				v-for="(count, type) in commentData.stats.badges"
+				:key="type"
+				:badge="{ type, count }"
+				:given="userInteractions.badgesGiven[type]"
+			/>
 		</div>
 
 		<!-- body -->
 		<div ref="contentRef" v-html="commentData.bodyHtml" class="text-body-2" />
 
 		<!-- actions -->
-		<ContentActions :contentData="commentData" @reply="emit('reply', commentData.id)"
-			@upvote="emit('upvote')" @downvote="emit('downvote')" @favorite="emit('favorite')" />
+		<ContentActions :replyInsteadOfComment="true" :contentData="commentData" @reply="emit('reply', commentData.id)" @upvote="emit('upvote')"
+			@downvote="emit('downvote')" @favorite="emit('favorite')" />
 	</v-col>
 </template>
 
 <script setup lang="ts">
 import UserHeader from './UserHeader.vue';
-import BadgeButton from './BadgeButton.vue';
+import BadgeLabel from './BadgeLabel.vue';
 
 const defaultInteractions = {
 	hasUpvoted: false,

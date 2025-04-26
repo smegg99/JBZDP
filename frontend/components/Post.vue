@@ -1,15 +1,22 @@
 <!-- Post.vue -->
 <template>
-	<v-card class="post-card px-6 py-6 mb-16" rounded="xl" elevation="4">
+	<v-card class="post-card px-5 py-5 mb-16" rounded="xl" elevation="4">
 		<!-- top row -->
 		<UserHeader :userData="postData.user" :contentCreatedAt="postData.createdAt"
 			:contentUpdatedAt="postData.updatedAt" />
 
 		<!-- badges -->
-		<div class="d-flex align-center flex-nowrap overflow-x-auto mb-2">
-			<BadgeButton v-for="(count, type) in postData.stats.badges" :key="type" :badge="{ type, count }"
-				:given="userInteractions.badgesGiven[type]" :canGive="canInteract"
-				@badge="emit('badge', { type, count })" />
+		<div
+			v-if="postData.stats.badges && Object.keys(postData.stats.badges).length"
+			class="d-flex align-center flex-nowrap mb-2"
+		>
+			<BadgeLabel
+				v-for="(count, type) in postData.stats.badges"
+				:key="type"
+				:badge="{ type, count }"
+				:given="userInteractions.badgesGiven[type]"
+				:canGive="canInteract"
+			/>
 		</div>
 
 		<!-- title -->
@@ -38,7 +45,7 @@
 			<h3 class="text-sm font-medium mb-2 flex items-center gap-1">
 				<v-icon size="16">mdi-pin</v-icon>Pinned
 			</h3>
-			<Thread :comments="postData.pinnedComments" :maxDepth="5" />
+			<Thread :comments="postData.pinnedComments" :maxDepth="2" />
 		</section>
 	</v-card>
 </template>
@@ -47,7 +54,7 @@
 import { computed } from 'vue'
 import Thread from './Thread.vue'
 import UserHeader from './UserHeader.vue'
-import BadgeButton from './BadgeButton.vue'
+import BadgeLabel from './BadgeLabel.vue'
 
 const defaultInteractions = {
 	hasUpvoted: false,

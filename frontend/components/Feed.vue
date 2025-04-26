@@ -2,7 +2,7 @@
 <template>
 	<v-container>
 		<v-row justify="center">
-			<v-col cols="12" sm="10" md="8" lg="6">
+			<v-col cols="12" sm="12" md="10" lg="8" xl="6">
 				<Post v-for="post in posts" :key="post.id" :postData="post" @upvote="() => { }" @downvote="() => { }"
 					@favorite="() => { }" @share="() => { }" @comments="() => { }" />
 			</v-col>
@@ -41,10 +41,10 @@ const posts = ref<PostCore[]>([
 			upvoteCount: 42,
 			downvoteCount: 2,
 			badges: {
-				the_finger: 0,
-				stone: 0,
-				silver: 0,
-				gold: 0,
+				the_finger: 6742,
+				stone: 6553,
+				silver: 2243,
+				gold: 4544,
 			}
 		} as VoteStats,
 		userInteractions: {
@@ -137,10 +137,10 @@ const posts = ref<PostCore[]>([
 							upvoteCount: 22,
 							downvoteCount: 1,
 							badges: {
-								the_finger: 1,
-								stone: 7,
-								silver: 2,
-								gold: 5,
+								the_finger: 1234,
+								stone: 7245,
+								silver: 2231,
+								gold: 5231,
 							}
 						} as VoteStats,
 						userInteractions: {
@@ -175,10 +175,10 @@ const posts = ref<PostCore[]>([
 							upvoteCount: 11,
 							downvoteCount: 312,
 							badges: {
-								the_finger: 132,
-								stone: 0,
-								silver: 1,
-								gold: 2,
+								the_finger: 1324,
+								stone: 1234,
+								silver: 1223,
+								gold: 2532,
 							}
 						} as VoteStats,
 						userInteractions: {
@@ -187,6 +187,78 @@ const posts = ref<PostCore[]>([
 							hasDownvoted: true,
 							badgesGiven: {
 								the_finger: true,
+								stone: false,
+								silver: false,
+								gold: false,
+							} as BadgesGiven,
+						} as UserInteractions,
+						comments: [
+							{
+								id: 1 as Id,
+								createdAt: now + 180000 as UnixMs,
+								user: {
+									id: 202 as Id,
+									name: 'wewuzkkanggznshieet1',
+									avatar: 'https://i.pravatar.cc/150?img=12',
+									joinedAt: now,
+									badges: b(),
+									isVerified: true,
+									currency: 0 as Currency,
+									baseRole: 'user' as BaseRole,
+									countryOfOrigin: 'is' as CountryCode,
+									isBanned: false,
+								},
+								bodyHtml: '<p>Balls</p>',
+								stats: {
+									upvoteCount: 0,
+									downvoteCount: 0,
+									badges: {
+										the_finger: 1324,
+										stone: 1234,
+										silver: 1223,
+										gold: 2532,
+									}
+								} as VoteStats,
+								userInteractions: {
+									isFavorited: false,
+									hasUpvoted: false,
+									hasDownvoted: false,
+									badgesGiven: {
+										the_finger: false,
+										stone: false,
+										silver: false,
+										gold: false,
+									} as BadgesGiven,
+								} as UserInteractions,
+							}
+						]
+					},
+					{
+						id: 1 as Id,
+						createdAt: now + 150000 as UnixMs,
+						user: {
+							id: 201 as Id,
+							name: 'mediaoverlord4488',
+							avatar: 'https://i.pravatar.cc/150?img=8',
+							joinedAt: now,
+							badges: b(),
+							isVerified: true,
+							currency: 0 as Currency,
+							baseRole: 'user' as BaseRole,
+							countryOfOrigin: 'is' as CountryCode,
+							isBanned: false,
+						},
+						bodyHtml: '<p>Balls</p>',
+						stats: {
+							upvoteCount: 0,
+							downvoteCount: 0,
+						} as VoteStats,
+						userInteractions: {
+							isFavorited: false,
+							hasUpvoted: false,
+							hasDownvoted: false,
+							badgesGiven: {
+								the_finger: false,
 								stone: false,
 								silver: false,
 								gold: false,

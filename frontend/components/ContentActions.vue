@@ -1,7 +1,7 @@
 <!-- ContentActions.vue -->
 <template>
 	<!-- actions -->
-	<div class="d-flex align-center mt-2 flex-nowrap overflow-x-auto">
+	<div class="d-flex align-center mt-4 flex-nowrap">
 		<!-- upvote -->
 		<v-btn rounded="xl" variant="outlined" size="small" :color="upvoted ? 'green' : undefined"
 			:disabled="!canInteract" @click="emit('upvote')" class="mr-2"
@@ -16,22 +16,40 @@
 			{{ downvoteCount }}
 		</v-btn>
 
-		<div class="flex-grow-1" />
+		<v-spacer class="flex-grow-1" />
 
 		<!-- favorite -->
-		<v-btn rounded="xl" variant="text" size="small" :color="favorited ? 'yellow-darken-2' : undefined" :disabled="!canInteract"
-			@click="emit('favorite')" :icon="favorited ? 'mdi-star' : 'mdi-star-outline'" />
+		<v-btn rounded="xl" variant="text" size="small" density="comfortable"
+			:color="favorited ? 'yellow-darken-2' : undefined" :disabled="!canInteract" @click="emit('favorite')"
+			:icon="favorited ? 'mdi-star' : 'mdi-star-outline'">
+		</v-btn>
+
+		<!-- award -->
+		<v-menu v-model="menuOpen" offset-y>
+			<template #activator="{ props: menuProps }">
+				<v-btn v-bind="menuProps" rounded="xl" variant="text" size="small" density="comfortable"
+					:disabled="!canInteract" icon="mdi-trophy-variant" class="ml-2" />
+			</template>
+			<v-list>
+				<v-list-item v-for="type in badgeTypes" :key="type" class="mr-2">
+					<BadgeButton :badgeType="type" @award="emit('award', type)" />
+				</v-list-item>
+			</v-list>
+		</v-menu>
 
 		<!-- comments/replies -->
 		<v-btn rounded="xl" variant="outlined" size="small" @click="emit('comments')" class="ml-2"
-			:prepend-icon="'mdi-comment-outline'">
+			:prepend-icon="replyInsteadOfComment ? 'mdi-reply' : 'mdi-comment'">
 			{{ commentRepliesCount }}
 		</v-btn>
 	</div>
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from 'vue'
+import BadgeButton from './BadgeButton.vue'
 
+const menuOpen = ref(false)
 const defaultInteractions = {
 	hasUpvoted: false,
 	hasDownvoted: false,
@@ -54,14 +72,23 @@ const upvoteCount = computed(() => props.contentData.stats.upvoteCount)
 const downvoteCount = computed(() => props.contentData.stats.downvoteCount)
 const commentRepliesCount = computed(() => props.contentData.comments?.length ?? 0)
 
+const badgeTypes = ['the_finger', 'stone', 'silver', 'gold'] as const
+
 const emit = defineEmits<{
 	(e: 'upvote'): void
 	(e: 'downvote'): void
 	(e: 'favorite'): void
+	(e: 'award', badge: BadgeType): void
 	(e: 'comments'): void
 }>()
 
 const props = defineProps<{
 	readonly contentData: PostCore | CommentCore
+	readonly replyInsteadOfComment?: boolean
 }>()
+
+function selectBadge(badge: { type: BadgeType; price: number; icon: string }) {
+	emit('award', badge.type)
+	menuOpen.value = false
+}
 </script>
