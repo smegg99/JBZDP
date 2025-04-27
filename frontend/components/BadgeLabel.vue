@@ -26,7 +26,7 @@ const badgeIcons: Record<BadgeType, string> = {
 const badgeColors: Record<BadgeType, string> = {
 	the_finger: 'red',
 	stone: 'grey',
-	silver: 'dark-grey',
+	silver: 'cyan',
 	gold: 'yellow'
 }
 
