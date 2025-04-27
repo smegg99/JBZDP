@@ -7,7 +7,7 @@
 		<!-- price + currency icon row -->
 		<div class="d-flex align-center mt-2">
 			<span class="text-caption font-weight-medium mr-1">{{ badgePrices[badgeType] }}</span>
-			<v-img :src="currency" width="16" height="16" contain />
+			<v-img :src="toilet_paper" width="16" height="16" contain />
 		</div>
 	</v-btn>
 </template>
@@ -18,7 +18,7 @@ import theFinger from '@/assets/icons/badges/the_finger.svg'
 import stone from '@/assets/icons/badges/stone.svg'
 import silver from '@/assets/icons/badges/silver.svg'
 import gold from '@/assets/icons/badges/gold.svg'
-import currency from '@/assets/icons/currency/currency.svg'
+import toilet_paper from '@/assets/icons/currencies/toilet_paper.svg'
 
 type BadgeType = 'the_finger' | 'stone' | 'silver' | 'gold'
 
@@ -30,10 +30,10 @@ const badgeIcons: Record<BadgeType, string> = {
 }
 
 const badgePrices: Record<BadgeType, number> = {
-	the_finger: 1000,
-	stone: 1000,
+	the_finger: 550,
+	stone: 100,
 	silver: 400,
-	gold: 100,
+	gold: 1000,
 }
 
 const bgColor = computed(() => {

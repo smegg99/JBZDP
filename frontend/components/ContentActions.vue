@@ -25,7 +25,7 @@
 		</v-btn>
 
 		<!-- award -->
-		<v-menu v-model="menuOpen" offset-y>
+		<v-menu v-model="menuOpen" offset-y transition="slide-y-transition">
 			<template #activator="{ props: menuProps }">
 				<v-btn v-bind="menuProps" rounded="xl" variant="text" size="small" density="comfortable"
 					:disabled="!canInteract" icon="mdi-trophy-variant" class="ml-2" />
@@ -54,7 +54,7 @@
 		</v-menu>
 
 		<!-- comments/replies -->
-		<v-btn rounded="xl" variant="outlined" size="small" @click="emit('comments')" class="ml-2"
+		<v-btn rounded="xl" variant="outlined" size="small" @click="emit('commentReply')" class="ml-2"
 			:prepend-icon="replyInsteadOfComment ? 'mdi-reply' : 'mdi-comment'">
 			{{ commentRepliesCount }}
 		</v-btn>
@@ -95,7 +95,7 @@ const emit = defineEmits<{
 	(e: 'downvote'): void
 	(e: 'favorite'): void
 	(e: 'award', badge: BadgeType): void
-	(e: 'comments'): void
+	(e: 'commentReply'): void
 }>()
 
 const props = defineProps<{

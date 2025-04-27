@@ -1,3 +1,4 @@
+<!-- MenuButton.vue -->
 <template>
 	<v-menu v-model="menuOpen" :close-on-content-click="false" transition="scale-transition" offset-y>
 		<template #activator="{ props }">
@@ -12,7 +13,7 @@
 					<strong>{{ category.title }}</strong>
 					<v-divider class="my-2"></v-divider>
 					<div v-for="(item, iIndex) in category.items" :key="iIndex" class="my-1">
-						<v-btn variant="text" style="text-transform: none;" @click="navigateTo(item.route)">
+						<v-btn variant="text" style="text-transform: none;" @click="navigateTo(category.route + item.route)">
 							{{ item.label }}
 						</v-btn>
 					</div>
@@ -22,43 +23,54 @@
 	</v-menu>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+<script setup lang="ts">
+interface MenuItem {
+	label: string
+	route: string
+}
 
-const menuOpen = ref(false)
+interface Category {
+	title: string
+	route: string
+	items: MenuItem[]
+}
+
+const menuOpen: Ref<boolean> = ref(false)
 const router = useRouter()
 
-const categories = [
+const categories: Category[] = [
 	{
 		title: 'Humor',
+		route: '/humor',
 		items: [
-			{ label: 'Memy', route: '/humor/memy' },
-			{ label: 'Demoty', route: '/humor/demoty' },
-			{ label: 'Video', route: '/humor/video' },
-			{ label: 'Komiksy', route: '/humor/komiksy' },
-			{ label: 'Screeny', route: '/humor/screeny' },
-			{ label: 'Templatki', route: '/humor/templatki' },
+			{ label: 'Memy', route: '/memy' },
+			{ label: 'Demoty', route: '/demoty' },
+			{ label: 'Video', route: '/video' },
+			{ label: 'Komiksy', route: '/komiksy' },
+			{ label: 'Screeny', route: '/screeny' },
+			{ label: 'Templatki', route: '/templatki' },
 		],
 	},
 	{
 		title: 'Polityka',
+		route: '/polityka',
 		items: [
-			{ label: 'Humor', route: '/polityka/humor' },
-			{ label: 'Informacje', route: '/polityka/informacje' },
+			{ label: 'Humor', route: '/humor' },
+			{ label: 'Informacje', route: '/informacje' },
 		],
 	},
 	{
 		title: 'Motoryzacja',
+		route: '/motoryzacja',
 		items: [
-			{ label: 'News', route: '/motoryzacja/news' },
-			{ label: 'Ciekawostki', route: '/motoryzacja/ciekawostki' },
+			{ label: 'News', route: '/news' },
+			{ label: 'Ciekawostki', route: '/ciekawostki' },
 		],
 	},
 ]
 
-function navigateTo(route) {
+function navigateTo(route: string): void {
 	menuOpen.value = false
-	router.push(route)
+	void router.push(route)
 }
 </script>

@@ -5,11 +5,7 @@
 			<Comment :commentData="comment" @reply="onReply" />
 
 			<div v-if="depth < maxDepth && (comment.comments?.length ?? 0) > 0" class="d-flex">
-				<v-divider
-					vertical
-					class="mx-2 mx-md-4"
-					color="grey lighten-2"
-				/>
+				<v-divider vertical class="mx-3 mx-md-6" color="grey lighten-2" />
 
 				<!-- nested thread grows to fill the rest -->
 				<Thread :comments="comment.comments ?? []" :maxDepth="maxDepth" :depth="depth + 1" @respond="onReply"
