@@ -21,14 +21,14 @@
 			</div>
 
 			<div class="d-flex flex-column align-start mt-1 gap-1" style="overflow: visible">
-				<v-chip v-if="contentCreatedAt" pill size="x-small" density="compact" color="success lighten-3"
+				<v-chip v-if="contentCreatedAt" pill size="x-small" density="compact" color="success lighten-1"
 					variant="text" prepend-icon="mdi-plus" class="ma-0 pa-0" label style="overflow: visible">
 					{{ formatDate(contentCreatedAt) }}
 				</v-chip>
 
 				<v-chip v-if="contentUpdatedAt && contentUpdatedAt !== contentCreatedAt" pill size="x-small"
-					density="compact" color="secondary lighten-3" variant="text" prepend-icon="mdi-pencil"
-					class="ma-0 pa-0" label style="overflow: visible">
+					density="compact" color="blue lighten-1" variant="text" prepend-icon="mdi-pencil" class="ma-0 pa-0"
+					label style="overflow: visible">
 					{{ formatDate(contentUpdatedAt) }}
 				</v-chip>
 			</div>

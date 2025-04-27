@@ -1,71 +1,52 @@
+<!-- BadgeButton.vue -->
 <template>
-	<v-btn
-		text
-		class="d-flex align-center"
-		:disabled="disabled"
-		@click="emit('award', badgeType)"
-	>
-		<!-- badge icon on the far left -->
-		<v-img
-			:src="badgeIcons[badgeType]"
-			width="24"
-			height="24"
-		/>
-		<!-- push price+coin to the right -->
-		<v-spacer />
-		<!-- price + currency, centered vertically -->
-		<div class="d-flex align-center">
-			<span class="text-body-2 mr-1">
-				{{ badgePrices[badgeType].price }}
-			</span>
-			<v-img
-				:src="currencyIcon"
-				width="16"
-				height="16"
-			/>
+	<v-btn :disabled="disabled" class="d-flex flex-column align-center pa-2" variant="text" elevation="0"
+		@click="$emit('award', badgeType)" stacked>
+		<v-img :src="badgeIcons[badgeType]" width="32" height="32" contain />
+
+		<!-- price + currency icon row -->
+		<div class="d-flex align-center mt-2">
+			<span class="text-caption font-weight-medium mr-1">{{ badgePrices[badgeType] }}</span>
+			<v-img :src="currency" width="16" height="16" contain />
 		</div>
 	</v-btn>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import theFinger from '@/assets/badges/the_finger.svg'
-import stone from '@/assets/badges/stone.svg'
-import silver from '@/assets/badges/silver.svg'
-import gold from '@/assets/badges/gold.svg'
-import currency from '@/assets/currency/currency.svg'
+import theFinger from '@/assets/icons/badges/the_finger.svg'
+import stone from '@/assets/icons/badges/stone.svg'
+import silver from '@/assets/icons/badges/silver.svg'
+import gold from '@/assets/icons/badges/gold.svg'
+import currency from '@/assets/icons/currency/currency.svg'
 
 type BadgeType = 'the_finger' | 'stone' | 'silver' | 'gold'
-
-interface BadgeEntry {
-	type: BadgeType
-	price: number
-}
 
 const badgeIcons: Record<BadgeType, string> = {
 	the_finger: theFinger,
 	stone: stone,
 	silver: silver,
-	gold: gold
+	gold: gold,
 }
 
-const badgePrices: Record<BadgeType, BadgeEntry> = {
-	the_finger: { type: 'the_finger', price: 1 },
-	stone: { type: 'stone', price: 2 },
-	silver: { type: 'silver', price: 3 },
-	gold: { type: 'gold', price: 4 }
+const badgePrices: Record<BadgeType, number> = {
+	the_finger: 1000,
+	stone: 1000,
+	silver: 400,
+	gold: 100,
 }
+
+const bgColor = computed(() => {
+	switch (props.badgeType) {
+		case 'the_finger': return 'bg-error'
+		case 'stone': return 'bg-warning'
+		case 'silver': return 'bg-info'
+		case 'gold': return 'bg-grey-lighten-2'
+	}
+})
 
 const props = defineProps<{
-	readonly badgeType: BadgeType
-	readonly given?: boolean
-	readonly currencyIcon?: string
+	badgeType: BadgeType
+	disabled?: boolean
 }>()
-
-const emit = defineEmits<{
-	(e: 'award', badge: BadgeType): void
-}>()
-
-const disabled = computed(() => props.given === true)
-const currencyIcon = computed(() => props.currencyIcon ?? currency)
 </script>

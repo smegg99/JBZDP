@@ -30,11 +30,27 @@
 				<v-btn v-bind="menuProps" rounded="xl" variant="text" size="small" density="comfortable"
 					:disabled="!canInteract" icon="mdi-trophy-variant" class="ml-2" />
 			</template>
-			<v-list>
-				<v-list-item v-for="type in badgeTypes" :key="type" class="mr-2">
-					<BadgeButton :badgeType="type" @award="emit('award', type)" />
-				</v-list-item>
-			</v-list>
+
+			<!-- new horizontal badge row -->
+			<v-card
+				class="pa-4"
+				elevation="1"
+				style="overflow: visible"
+			>
+				<v-row
+					v-for="type in badgeTypes"
+					:key="type"
+					cols="auto"
+					class="d-flex flex-column align-center"
+					style="overflow: visible"
+				>
+					<BadgeButton
+						:badgeType="type"
+						:disabled="userInteractions.badgesGiven?.[type]"
+						@award="selectBadge"
+					/>
+				</v-row>
+			</v-card>
 		</v-menu>
 
 		<!-- comments/replies -->

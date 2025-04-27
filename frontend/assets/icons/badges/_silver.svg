@@ -26,8 +26,8 @@
      inkscape:pagecheckerboard="1"
      inkscape:deskcolor="#505050"
      inkscape:zoom="0.25584283"
-     inkscape:cx="859.90292"
-     inkscape:cy="607.79502"
+     inkscape:cx="857.94861"
+     inkscape:cy="607.79503"
      inkscape:window-width="1920"
      inkscape:window-height="1006"
      inkscape:window-x="1080"
@@ -442,8 +442,8 @@
        inkscape:menu="Bumps"
        height="1.015629"
        width="1.015629"
-       x="-0.0078145177"
-       y="-0.0078145177"
+       x="-0.0078145176"
+       y="-0.0078145176"
        style="color-interpolation-filters:sRGB;"
        id="filter18"><feBlend
          mode="normal"
@@ -506,7 +506,7 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Layer 2"
-     style="opacity:0.559;mix-blend-mode:overlay"><path
+     style="display:inline;opacity:0.559;mix-blend-mode:overlay"><path
        id="path36"
        style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:15.1181;stroke-linecap:square;stroke-dasharray:none;paint-order:stroke fill markers"
        d="M 271.42294,61.49493 A 512,512 0 0 0 54.410076,284.39933 L 740.60734,969.04143 A 512,512 0 0 0 963.05943,751.56086 Z" /></g><g

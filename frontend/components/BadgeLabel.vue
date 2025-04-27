@@ -7,11 +7,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import theFinger from '@/assets/badges/the_finger.svg'
-import stone from '@/assets/badges/stone.svg'
-import silver from '@/assets/badges/silver.svg'
-import gold from '@/assets/badges/gold.svg'
+import theFinger from '@/assets/icons/badges/the_finger.svg'
+import stone from '@/assets/icons/badges/stone.svg'
+import silver from '@/assets/icons/badges/silver.svg'
+import gold from '@/assets/icons/badges/gold.svg'
 
 type BadgeType = 'the_finger' | 'stone' | 'silver' | 'gold'
 interface BadgeEntry { type: BadgeType; count: number }
