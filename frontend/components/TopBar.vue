@@ -1,26 +1,25 @@
 <!-- components/TopBar.vue -->
 <template>
 	<v-app-bar app height="46">
-		<v-row class="align-center" style="width: 100%;">
-			<v-col cols="4">
-				<SearchDialog />
-			</v-col>
+		<v-img :src="logoSrc" height="46" width="46" contain alt="Logo" @click="navigateTo('/')" />
 
-			<v-col cols="4" class="d-flex justify-center">
-				<v-img :src="logoSrc" height="46" width="auto" contain alt="Logo" @click="navigateTo('/')" />
-			</v-col>
+		<SearchDialog />
 
-			<v-col cols="4" class="d-flex justify-end">
-				<MenuButton />
-			</v-col>
-		</v-row>
+		<FollowedButton />
+		
+		<v-btn class="ml-3 top-bar-button" append-icon="mdi-timer-sand">
+			Oczekujące
+		</v-btn>
+
+
+		<SectionsButton />
 	</v-app-bar>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router'
 import logoSrc from '@/assets/logo.svg'
-import MenuButton from '@/components/MenuButton.vue'
+import SectionsButton from '@/components/SectionsButton.vue'
 import SearchDialog from '@/components/SearchDialog.vue'
 
 const router = useRouter()

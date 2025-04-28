@@ -1,72 +1,67 @@
 <!-- components/SearchDialog.vue -->
 <template>
-	<div>
-		<!-- search button -->
-		<v-btn text class="mx-3" @click="dialog = true">
-			<v-icon start>mdi-magnify</v-icon>
-			Szukaj
-		</v-btn>
+	<!-- search button -->
+	<v-btn class="top-bar-button" append-icon="mdi-magnify" @click="dialog = true">
+		Szukaj
+	</v-btn>
 
-		<v-dialog v-model="dialog" max-width="500">
-			<v-card class="pa-4 rounded-lg elevation-10">
-				<!-- search dialog header -->
-				<v-card-title class="d-flex justify-space-between align-center pb-0">
-					<div class="d-flex align-center">
-						<v-icon class="me-2">mdi-magnify</v-icon>
-						<span class="text-h6">Wyszukiwarka</span>
-					</div>
-					<v-btn icon @click="dialog = false">
-						<v-icon>mdi-close</v-icon>
-					</v-btn>
-				</v-card-title>
+	<v-dialog v-model="dialog" max-width="500">
+		<v-card class="pa-4 rounded-lg elevation-10">
+			<!-- search dialog header -->
+			<v-card-title class="d-flex justify-space-between align-center pb-0">
+				<div class="d-flex align-center">
+					<v-icon class="me-2">mdi-magnify</v-icon>
+					<span class="text-h6">Wyszukiwarka</span>
+				</div>
+				<v-btn icon @click="dialog = false">
+					<v-icon>mdi-close</v-icon>
+				</v-btn>
+			</v-card-title>
 
-				<v-divider class="my-3" />
+			<v-divider class="my-3" />
 
-				<!-- search form -->
-				<v-form ref="formRef" @submit.prevent="onSearch" validate-on="submit" lazy-validation>
-					<v-row class="gap-y-1">
-						<v-col cols="12" class="pb-0">
-							<v-select v-model="form.searchType" :items="SEARCH_TYPES" item-title="label"
-								item-value="value" label="Typ wyszukiwania" variant="outlined" density="default"
-								prepend-icon="mdi-filter" />
-						</v-col>
+			<!-- search form -->
+			<v-form ref="formRef" @submit.prevent="onSearch" validate-on="submit" lazy-validation>
+				<v-row class="gap-y-1">
+					<v-col cols="12" class="pb-0">
+						<v-select v-model="form.searchType" :items="SEARCH_TYPES" item-title="label" item-value="value"
+							label="Typ wyszukiwania" variant="outlined" density="default" prepend-icon="mdi-filter" />
+					</v-col>
 
-						<v-col cols="12" class="pb-2">
-							<v-text-field v-model.trim="form.query" :rules="queryRules"
-								label="Wyszukaj po nazwie / tytule" variant="outlined" density="default"
-								append-inner-icon="mdi-magnify" @click:append-inner="onSearch"
-								@keyup.enter="onSearch" />
-						</v-col>
+					<v-col cols="12" class="pb-2">
+						<v-text-field v-model.trim="form.query" :rules="queryRules" label="Wyszukaj po nazwie / tytule"
+							variant="outlined" density="default" append-inner-icon="mdi-magnify"
+							@click:append-inner="onSearch" @keyup.enter="onSearch" />
+					</v-col>
 
-						<v-col v-if="isPosts" cols="12" class="pb-2">
-							<v-text-field v-model.trim="form.tags" :rules="tagRules" label="Tagi (oddziel przecinkami)"
-								variant="outlined" density="default" append-inner-icon="mdi-tag-multiple" />
-						</v-col>
+					<v-col v-if="isPosts" cols="12" class="pb-2">
+						<v-text-field v-model.trim="form.tags" :rules="tagRules" label="Tagi (oddziel przecinkami)"
+							variant="outlined" density="default" append-inner-icon="mdi-tag-multiple" />
+					</v-col>
 
-						<v-col cols="12" class="pb-0">
-							<v-select v-model="form.sort" :items="sortOptions" item-title="label" item-value="value"
-								:label="sortLabel" variant="outlined" density="default" prepend-icon="mdi-sort">
-								<template #item="{ props, item }">
-									<v-list-item v-bind="props">
-										<template #prepend>
-											<v-icon>{{ item.raw.icon }}</v-icon>
-										</template>
-									</v-list-item>
-								</template>
-							</v-select>
-						</v-col>
+					<v-col cols="12" class="pb-0">
+						<v-select v-model="form.sort" :items="sortOptions" item-title="label" item-value="value"
+							:label="sortLabel" variant="outlined" density="default" prepend-icon="mdi-sort">
+							<template #item="{ props, item }">
+								<v-list-item v-bind="props">
+									<template #prepend>
+										<v-icon>{{ item.raw.icon }}</v-icon>
+									</template>
+								</v-list-item>
+							</template>
+						</v-select>
+					</v-col>
 
-						<v-col cols="12">
-							<v-btn block color="primary" variant="elevated" size="large" type="submit">
-								<v-icon start>mdi-magnify</v-icon>
-								Szukaj
-							</v-btn>
-						</v-col>
-					</v-row>
-				</v-form>
-			</v-card>
-		</v-dialog>
-	</div>
+					<v-col cols="12">
+						<v-btn block color="primary" variant="elevated" size="large" type="submit">
+							<v-icon start>mdi-magnify</v-icon>
+							Szukaj
+						</v-btn>
+					</v-col>
+				</v-row>
+			</v-form>
+		</v-card>
+	</v-dialog>
 </template>
 
 <script setup lang="ts">

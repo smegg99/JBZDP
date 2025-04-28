@@ -25,3 +25,17 @@
 .text-grey {
 	color: #aaa;
 }
+
+.top-bar-button {
+	border: none !important;
+	border-bottom: 2px solid transparent !important;
+	border-radius: 0 !important;
+	height: 100% !important;
+	transition:
+		border-bottom-color 0.3s ease-in-out,
+		transform 0.2s ease-in-out;
+}
+
+.top-bar-button:hover {
+	border-bottom-color: currentColor !important;
+}

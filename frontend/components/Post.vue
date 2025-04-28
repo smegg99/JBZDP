@@ -12,10 +12,8 @@
 				:given="userInteractions.badgesGiven[type]" :canGive="canInteract" />
 		</div>
 
-		<v-divider class="mt-3" />
-
 		<!-- breadcrumbs -->
-		<v-breadcrumbs :items="['polityka', 'humor']" class="text-caption font-weight-medium pa-2">
+		<v-breadcrumbs :items="['polityka', 'humor']" class="text-caption font-weight-medium pa-2 mt-3 mb-1">
 			<template v-slot:prepend>
 				<v-icon icon="mdi-label-outline" size="small"></v-icon>
 			</template>
@@ -26,8 +24,6 @@
 				{{ item.title.toUpperCase() }}
 			</template>
 		</v-breadcrumbs>
-
-		<v-divider class="mb-3" />
 
 		<!-- title -->
 		<h2 class="text-xl break-words">{{ postData.title }}</h2>
@@ -56,7 +52,7 @@
 				bottom: 0;
 				left: 0;
 				width: 100%;
-				height: 8rem;
+				height: 16rem;
 				background: linear-gradient(
 					to bottom,
 					rgba(var(--v-theme-surface), 0),
